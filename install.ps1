@@ -18,23 +18,23 @@ if (-Not ([Security.Principal.WindowsPrincipal] [Security.Principal.WindowsIdent
 $ProgressPreference = 'SilentlyContinue'
 $InformationPreference = 'Continue'
 
-$116Url = 'https://github.com/Mineage-Network/mv-fixed-appx/releases/download/1.0.1/1.16.100.4.appx'
-$118Url = 'https://github.com/Mineage-Network/mv-fixed-appx/releases/download/1.0.1/1.18.12.1.appx'
+$116Url = 'https://github.com/onezinhokkj/jar-fixed-appx/releases/download/1.0.0/1.16.100.4.appx'
+$118Url = 'https://github.com/onezinhokkj/jar-fixed-appx/releases/download/1.0.0/1.18.12.1.appx'
 
 [Console]::ForegroundColor = 'gray'
-Write-Information "mv-fixed-appx: really simple script to either install or switch to xbox authentication fixed versions of Minecraft (1.16.100.4 and 1.18.12.1)."
-Write-Information "Brought to you by mineage.us discord.gg/mineagenetwork"
+Write-Information "mv-fixed-appx: script bem simples para instalar ou alternar para versoes corrigidas da autenticacao do Xbox do Minecraft (1.16.100.4 e 1.18.12.1)."
+Write-Information "Feito pela Mineage"
 Start-Sleep -Seconds 2
-Write-Warning "This script will replace your current Minecraft installation with a patched package (no renderdragon, fixed xbox authentication)."
+Write-Warning "Este script substituira sua instalacao atual do Minecraft por um pacote corrigido (sem renderdragon, autenticacao do Xbox corrigida)."
 [Console]::ForegroundColor = 'yellow'
-$choice = Read-Host -Prompt 'Enter 1 to proceed (the script automatically closes Minecraft if open), enter any other value to quit'
+$choice = Read-Host -Prompt 'Digite 1 para prosseguir (o script fecha automaticamente o Minecraft se estiver aberto), digite qualquer outro valor para sair'
 
 # Close Minecraft process
 
 if ($choice -eq 1) {
     if( Get-Process Minecraft.Windows -ErrorAction SilentlyContinue) {
         [Console]::ForegroundColor = 'yellow'
-        Write-Information "Killing Minecraft process..."
+        Write-Information "Finalizando o processo do Minecraft..."
         $processId = (Get-Process Minecraft.Windows).Id
         Stop-Process -Id $processId
         [Console]::ForegroundColor = 'green'
@@ -42,7 +42,7 @@ if ($choice -eq 1) {
     }
     Start-Sleep -Seconds 1
 } else {
-    Write-Information "Quitting in 3 seconds..."
+    Write-Information "Saindo em 3 segundos..."
     Start-Sleep -Seconds 3
     Exit
 }
@@ -52,9 +52,9 @@ $pfxPath = 'null'
 $appxPath = 'null'
 
 [Console]::ForegroundColor = 'yellow'
-$choice = Read-Host -Prompt 'Enter 1 to install 1.16.100.4, enter 2 to install 1.18.12.1'
+$choice = Read-Host -Prompt 'Digite 1 para instalar a versao 1.16.100.4, digite 2 para instalar a versao 1.18.12.1.'
 if ( -not($choice) ) {
-    Write-Error -Message "You didn't enter a choice."
+    Write-Error -Message "Voce nao digitou uma opcao correta."
     Start-Sleep -Seconds 5
     Exit
 }
@@ -70,7 +70,7 @@ New-Item -ItemType Directory -Path ($mvFixedAppxPath + '\oldData')
 New-Item -ItemType Directory -Path ($mvFixedAppxPath + '\deps')
 
 [Console]::ForegroundColor = 'yellow'
-Write-Information "Attempting to download required files..."
+Write-Information "Tentando baixar os arquivos necessarios..."
 $thumbprint = 'null'
 
 # Install certs
@@ -80,8 +80,8 @@ if( $choice -eq '1' ) {
     $thumbprint = '95ea29c5a53b5c80ca7f42c5d30bea1c26382fac'
     $pfxPath = ($mvFixedAppxPath + '\1.16.100.4.pfx')
     $appxPath = ($mvFixedAppxPath + '\1.16.100.4.appx')
-    Invoke-WebRequest -Uri "https://raw.githubusercontent.com/Mineage-Network/mv-fixed-appx/master/1.16.100.4/1.16.100.4.cer" -OutFile $cerPath
-    Invoke-WebRequest -Uri "https://raw.githubusercontent.com/Mineage-Network/mv-fixed-appx/master/1.16.100.4/1.16.100.4.pfx" -OutFile $pfxPath
+    Invoke-WebRequest -Uri "https://raw.githubusercontent.com/onezinhokkj/jar-fixed-appx/master/1.16.100.4/1.16.100.4.cer" -OutFile $cerPath
+    Invoke-WebRequest -Uri "https://raw.githubusercontent.com/onezinhokkj/jar-fixed-appx/master/1.16.100.4/1.16.100.4.pfx" -OutFile $pfxPath
     Invoke-WebRequest -Uri $116Url -OutFile $appxPath
     Write-Information "Done."
 } elseif( $choice -eq '2' ) {
@@ -89,20 +89,20 @@ if( $choice -eq '1' ) {
     $thumbprint = '3dc5cf378d170d1c5083297c522c797ae1dd2e9d'
     $pfxPath = ($mvFixedAppxPath + '\1.18.12.1.pfx')
     $appxPath = ($mvFixedAppxPath + '\1.18.12.1.appx')
-    Invoke-WebRequest -Uri "https://raw.githubusercontent.com/Mineage-Network/mv-fixed-appx/master/1.18.12.1/1.18.12.1.cer" -OutFile $cerPath
-    Invoke-WebRequest -Uri "https://raw.githubusercontent.com/Mineage-Network/mv-fixed-appx/master/1.18.12.1/1.18.12.1.pfx" -OutFile $pfxPath
+    Invoke-WebRequest -Uri "https://raw.githubusercontent.com/Monezinhokkj/jar-fixed-appx/master/1.18.12.1/1.18.12.1.cer" -OutFile $cerPath
+    Invoke-WebRequest -Uri "https://raw.githubusercontent.com/onezinhokkj/jar-fixed-appx/master/1.18.12.1/1.18.12.1.pfx" -OutFile $pfxPath
     Invoke-WebRequest -Uri $118Url -OutFile $appxPath
     Write-Information "Done."
 } else {
     [Console]::ForegroundColor = 'red'
-    Write-Error "Value isn't valid. Try running the script again."
+    Write-Error "O valor nao e valido. Tente executar o script novamente."
     Start-Sleep -Seconds 3
     [Console]::ResetColor()
     Exit
 }
 
 [Console]::ForegroundColor = 'yellow'
-Write-Information "Attempting to import .cer certificate..."
+Write-Information "Tentando importar o certificado .cer..."
 $params = @{
     FilePath = $cerPath
     CertStoreLocation = 'Cert:\LocalMachine\Root'
@@ -111,7 +111,7 @@ Import-Certificate @params
 [Console]::ForegroundColor = 'green'
 
 [Console]::ForegroundColor = 'yellow'
-Write-Information "Attempting to import .pfx certificate..."
+Write-Information "Tentando importar o certificado .pfx..."
 $params = @{
     FilePath = $pfxPath
     CertStoreLocation = 'Cert:\LocalMachine\My'
@@ -122,7 +122,7 @@ Import-PfxCertificate @params
 # Keep data
 
 [Console]::ForegroundColor = 'yellow'
-$isBackupActive = Read-Host -Prompt 'Do you want to keep your data? Enter 1 to keep it, enter 2 to discard it'
+$isBackupActive = Read-Host -Prompt 'Voce deseja manter seus dados? Digite 1 para manter, digite 2 para descartar'
 $baseDir = 'C:\Users\' + [Environment]::UserName + '\AppData\Local\Packages'
 $dataDir = 'null'
 if ($isBackupActive -eq 1) {
@@ -130,7 +130,7 @@ if ($isBackupActive -eq 1) {
     if (Test-Path $dataDir) {
         Copy-Item -LiteralPath $dataDir -Recurse -Destination ($mvFixedAppxPath + '\oldData')
     } else {
-        Write-Warning "You don't have any data related to Minecraft."
+        Write-Warning "Voce nao tem nenhum dado relacionado ao Minecraft."
         $isBackupActive = '2'
     }
 }
@@ -139,7 +139,7 @@ if ($isBackupActive -eq 1) {
 
 if( Get-AppxPackage *minecraft* ) {
     [Console]::ForegroundColor = 'yellow'
-    Write-Information "Attempting to uninstall Minecraft..."
+    Write-Information "Tentando desinstalar o Minecraft..."
     Get-AppxPackage *minecraft* | Remove-AppxPackage
 
     if ( -not(Get-AppxPackage *minecraft*) ) {
@@ -148,11 +148,11 @@ if( Get-AppxPackage *minecraft* ) {
         [Console]::ResetColor()
     } else {
         [Console]::ForegroundColor = 'red'
-        Write-Error "Minecraft uninstallation failed."
-        Write-Information "Deleting temp files..."
+        Write-Error "A desinstalacao do Minecraft falhou."
+        Write-Information "Excluindo arquivos temporarios..."
         Set-Location 'C:\'
         Remove-Item -Path $mvFixedAppxPath -Recurse -Force
-        Write-Warning "Closing Powershell script in 5 seconds..."
+        Write-Warning "Fechando o script do PowerShell em 5 segundos..."
         Start-Sleep -Seconds 5
         [Console]::ResetColor()
         Exit
@@ -160,32 +160,32 @@ if( Get-AppxPackage *minecraft* ) {
 }
 
 [Console]::ForegroundColor = 'yellow'
-Write-Information "Attempting to install dependencies..."
+Write-Information "Tentando instalar as dependencias..."
 
 # Installing dependencies
 
 if( Get-AppxPackage Microsoft.Services.Store.Engagement ) {
     [Console]::ForegroundColor = 'green'
-    Write-Information "Store Engagement is already installed."
+    Write-Information "O Store Engagement ja esta instalado."
 } else {
     $storeEngagementPath = ($mvFixedAppxPath + '\deps\engagement.appx')
-    Invoke-WebRequest -Uri "https://raw.githubusercontent.com/Mineage-Network/mv-fixed-appx/master/deps/Microsoft.Services.Store.Engagement_10.0.23012.0_x64__8wekyb3d8bbwe.Appx" -OutFile $storeEngagementPath
+    Invoke-WebRequest -Uri "https://raw.githubusercontent.com/onezinhokkj/jar-fixed-appx/master/deps/Microsoft.Services.Store.Engagement_10.0.23012.0_x64__8wekyb3d8bbwe.Appx" -OutFile $storeEngagementPath
     Add-AppxPackage $storeEngagementPath
     [Console]::ForegroundColor = 'green'
-    Write-Information "Store Engagement has been installed."
+    Write-Information "O Store Engagement foi instalado."
     [Console]::ResetColor()
 }
 
 if( Get-AppxPackage *vclibs.140.00* ) {
     [Console]::ForegroundColor = 'green'
-    Write-Information "VCLibs is already installed."
+    Write-Information "O VCLibs ja esta instalado."
     [Console]::ResetColor()
 } else {
     $vcLibsPath = ($mvFixedAppxPath + '\deps\vclibs.appx')
-    Invoke-WebRequest -Uri "https://raw.githubusercontent.com/Mineage-Network/mv-fixed-appx/master/deps/Microsoft.VCLibs.140.00_14.0.33519.0_x64__8wekyb3d8bbwe.Appx" -OutFile $vcLibsPath
+    Invoke-WebRequest -Uri "https://raw.githubusercontent.com/onezinhokkj/jar-fixed-appx/master/deps/Microsoft.VCLibs.140.00_14.0.33519.0_x64__8wekyb3d8bbwe.Appx" -OutFile $vcLibsPath
     Add-AppxPackage $vcLibsPath
     Remove-Item -Path $vcLibsPath -Force
-    Invoke-WebRequest -Uri "https://raw.githubusercontent.com/Mineage-Network/mv-fixed-appx/master/deps/Microsoft.VCLibs.140.00_14.0.33519.0_x86__8wekyb3d8bbwe.Appx" -OutFile $vcLibsPath
+    Invoke-WebRequest -Uri "https://raw.githubusercontent.com/onezinhokkj/jar-fixed-appx/master/deps/Microsoft.VCLibs.140.00_14.0.33519.0_x86__8wekyb3d8bbwe.Appx" -OutFile $vcLibsPath
     Add-AppxPackage $vcLibsPath
     [Console]::ForegroundColor = 'green'
     Write-Information "VCLibs has been installed."
@@ -194,18 +194,18 @@ if( Get-AppxPackage *vclibs.140.00* ) {
 
 # Installing Minecraft
 [Console]::ForegroundColor = 'yellow'
-Write-Information "Attempting to install Minecraft..."
+Write-Information "Tentando instalar o Minecraft..."
 Add-AppxPackage $appxPath
 if( Get-AppxPackage *minecraft* ) {
     [Console]::ForegroundColor = 'green'
-    Write-Information "Minecraft has been successfully installed."
+    Write-Information "O Minecraft foi instalado com sucesso."
 } else {
     [Console]::ForegroundColor = 'red'
-    [Console]::Error.WriteLine("Minecraft hasn't been successfully installed.")
-    Write-Information "Deleting temp files..."
+    [Console]::Error.WriteLine("O Minecraft nao foi instalado com sucesso.")
+    Write-Information "Excluindo arquivos temporarios..."
     Set-Location 'C:\'
     Remove-Item -Path $mvFixedAppxPath -Recurse -Force
-    Write-Warning "Closing Powershell script in 5 seconds..."
+    Write-Warning "Fechando o script do PowerShell em 5 segundos..."
     Start-Sleep -Seconds 5
     Exit
 }
@@ -222,16 +222,17 @@ if ($isBackupActive -eq 1) {
 # Deletion of temp files
 
 [Console]::ForegroundColor = 'yellow'
-Write-Information "Deleting temp files..."
+Write-Information "Excluindo arquivos temporarios..."
 Set-Location 'C:\'
 Remove-Item -Path $mvFixedAppxPath -Recurse -Force
 
 [Console]::ForegroundColor = 'green'
 Write-Information "Done."
 [Console]::ForegroundColor = 'blue'
-Write-Information "Join our Discord server!"
-Start-Process "https://discord.gg/mineagenetwork"
-Write-Warning "Closing Powershell script in 5 seconds..."
+Write-Information "Entre em nosso Discord!"
+Write-Information "Script feito pela Mineage!"
+Start-Process "https://discord.gg/Y4APTPcVDn"
+Write-Warning "Fechando o script do PowerShell em 5 segundos..."
 Start-Sleep -Seconds 5
 [Console]::ResetColor()
 pause
