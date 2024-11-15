@@ -1,19 +1,15 @@
-After the mojang xbox authentication issue, we decided to create a script for you to install a patched version of the game. 
 
-Here is how to use the script:
+Como usar:
 
-download **install.ps1** on https://github.com/Mineage-Network/mv-fixed-appx/releases
+baixe o arquivo **install.ps1** em https://github.com/Mineage-Network/mv-fixed-appx/releases
 
-right click on the **install.ps1** file
+clique com botão direito em **install.ps1** 
 
-click on "**Run with PowerShell**"
-
-Please **⁠create-ticket** on our discord if you have any issue or doubt with the installation.
+e clique em "**Executar com o PowerShell**"
 
 
 
 
 
-
-Made by 
+Feito por
 https://discord.gg/mineagenetwork
