@@ -10,4 +10,10 @@ click on "**Run with PowerShell**"
 
 Please **⁠create-ticket** on our discord if you have any issue or doubt with the installation.
 
+
+
+
+
+
+Made by 
 https://discord.gg/mineagenetwork
